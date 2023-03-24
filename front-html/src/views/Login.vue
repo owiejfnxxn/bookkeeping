@@ -30,13 +30,24 @@
 </template>
 
 <script>
+    import router from "@/router";
+    import {Message} from "element-ui";
+    import axios from "axios";
+    import Login from "@/views/Login";
+    import {getStore,setStore} from "@/plugins/storage";
+    import * as userAPI from "@/api/userAPI"
+    axios.defaults.baseURL="http://localhost:8181";
+    // import Stores from "@/stores";
+
+    // const userStore = Stores.useUserStore()
+    // const homeStore = Stores.useHomeStore()
     export default {
         name: "Login",
         data(){
             return{
                 //这是登录表单的数据绑定对象
                 loginForm: {
-                    username: '张三',
+                    username: '张三12',
                     password: '123456',
                 },
                 loginRules:{
@@ -67,19 +78,24 @@
                 //预校验
                 this.$refs.loginFormRef.validate(valid =>{
                     if(valid){
-                        alert("成功");
-                        axios.request({
-                            url:'http://localhost:8181/login'
-                        }).then(res=>{
-                            console.log(res);
-                        }).catch(err=>{
-                            console.log(err);
-                        })
+                    userAPI.login(this.loginForm.username,this.loginForm.password).then(res => {
+                        if(res.data.success){
+                            Message.success("登录成功")
+                            setStore('accessToken',res.data.data.token);
+
+                            //获得用户数据
+                            userAPI.userInfo().then(res => {
+                                let userInfo = res.data.data;
+                                // userStore.saveUserInfo(userInfo);
+                                console.log(userStore.state)
+                            })
+                        }
+                    });
                     }
                 })
             },
             userRegister(){
-
+                router.push('/user/register')
             }
         },
 
