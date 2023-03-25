@@ -34,13 +34,10 @@
     import {Message} from "element-ui";
     import axios from "axios";
     import Login from "@/views/Login";
-    import {getStore,setStore} from "@/plugins/storage";
+    import {useUserStore} from "@/store";
     import * as userAPI from "@/api/userAPI"
+    import {setStore} from "@/plugins/storage";
     axios.defaults.baseURL="http://localhost:8181";
-    // import Stores from "@/stores";
-
-    // const userStore = Stores.useUserStore()
-    // const homeStore = Stores.useHomeStore()
     export default {
         name: "Login",
         data(){
@@ -82,12 +79,22 @@
                         if(res.data.success){
                             Message.success("登录成功")
                             setStore('accessToken',res.data.data.token);
-
                             //获得用户数据
                             userAPI.userInfo().then(res => {
                                 let userInfo = res.data.data;
-                                // userStore.saveUserInfo(userInfo);
-                                console.log(userStore.state)
+                                //设置state数据
+                                useUserStore.state.id=userInfo.id;
+                                useUserStore.state.avatar=userInfo.avatar;
+                                useUserStore.state.totalExpenditure=userInfo.totalExpenditure;
+                                useUserStore.state.name=userInfo.name;
+                                useUserStore.state.nickname=userInfo.nickname;
+                                useUserStore.state.grossIncome = userInfo.grossIncome;
+
+
+                                //打开主体页面
+
+                            }).catch(err => {
+                                console.log(err);
                             })
                         }
                     });

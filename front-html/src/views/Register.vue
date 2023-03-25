@@ -87,6 +87,8 @@
 <script>
     import * as userAPI from '@/api/userAPI'
     import {getStore,setStore} from "@/plugins/storage";
+    import {Message} from "element-ui";
+    import {useUserStore} from "@/store";
     export default {
         data() {
             return {
@@ -206,7 +208,25 @@
                     if (valid) {
                         //向后端发送注册请求
                         userAPI.register(this.ruleForm.name,this.ruleForm.pwd,this.ruleForm.email,this.ruleForm.code).then(res =>{
-                            setStore('accessToken',res.data.data.token)
+                            let registerInfo = res.data;
+                            if(registerInfo.success){
+                                Message.info("注册成功....正在登录")
+                                setStore('accessToken',registerInfo.data.token);
+                                userAPI.userInfo().then(res=>{
+                                    let userInfo = res.data;
+                                    //设置state数据
+                                    useUserStore.state.id=userInfo.id;
+                                    useUserStore.state.avatar=userInfo.avatar;
+                                    useUserStore.state.totalExpenditure=userInfo.totalExpenditure;
+                                    useUserStore.state.name=userInfo.name;
+                                    useUserStore.state.nickname=userInfo.nickname;
+                                    useUserStore.state.grossIncome = userInfo.grossIncome;
+
+                                    //打开主体页面
+
+                                })
+                            }
+
                         })
                     }
                 })

@@ -51,7 +51,7 @@ service.interceptors.response.use(
     async (response) => {
                 const res = response.data;
                 if(res.code !== 200){
-                    Message.warning(res.msg);
+                    Message.warning(res.msg+"response warning");
                     return Promise.reject(response);
                 }else{
                     return response;
@@ -59,7 +59,7 @@ service.interceptors.response.use(
     },
     async (error) => {
             const errorResponse = error.response;
-            const errorData =errorResponse.data;
+            const errorData =errorResponse === undefined? undefined: errorResponse.data;
             if(error.message){
                 let _message =
                 error.code === "ECONNABORTED"
