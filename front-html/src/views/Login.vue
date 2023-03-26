@@ -92,7 +92,7 @@
 
 
                                 //打开主体页面
-
+                                router.push('/user/index')
                             }).catch(err => {
                                 console.log(err);
                             })

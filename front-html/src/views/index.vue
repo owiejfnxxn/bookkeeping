@@ -85,7 +85,7 @@
       text-align: right;
     }
     .main{
-      min-height: 642px;
+      min-height: 600px;
     }
     .header{
       background-color: skyblue;
