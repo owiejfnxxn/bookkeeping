@@ -238,3 +238,10 @@ export function detailsWeek(week){
         needToken:true
     })
 }
+
+/**
+ * 根据时间段获取总支出
+ * @param {state_date} date 起始时间
+ * @param {end_date} date 结束时间
+ * @return {totalExpenditure} double
+ */

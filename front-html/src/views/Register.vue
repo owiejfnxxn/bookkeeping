@@ -40,11 +40,11 @@
                     </el-form-item>
                 </div>
                 <div v-if="active==1">
-                    <el-form-item label="用户名" prop="name">
-                        <el-input v-model="ruleForm.name" />
+                    <el-form-item :error="ruleForm.nameErrMsg" label="用户名" prop="name">
+                        <el-input v-model="ruleForm.name" @change="resetName"/>
                     </el-form-item>
                     <el-form-item :error="ruleForm.emailErrMsg" label="邮箱" prop="email">
-                        <el-input v-model="ruleForm.email"/>
+                        <el-input v-model="ruleForm.email" @change="resetEmail"/>
                         <el-button size="mini" round @click="sendMsg">发送验证码</el-button>
                         <span class="status">{{ statusMsg }}</span>
                     </el-form-item>
@@ -105,6 +105,7 @@
                     cpwd: '',
                     email: '',
                     emailErrMsg: '',
+                    nameErrMsg:'',
                 },
                 rules: {
                     agreed: [{
@@ -155,6 +156,12 @@
         },
         layout: 'blank',
         methods: {
+            resetName(){
+              this.ruleForm.nameErrMsg='';
+            },
+            resetEmail(){
+                this.ruleForm.emailErrMsg='';
+            },
             sendMsg: function() {
                 const self = this
                 let namePass
@@ -185,7 +192,16 @@
                         }
                     }, 1000)
                     //向后端发送验证码请求
+                    userAPI.sendCode().then(res =>{
+                        let data = res.data;
+                        if(data.code === 40004){
+                            this.ruleForm.emailErrMsg('邮箱已被注册');
+                        }else if(data.code === 20006){
+                            this.ruleForm.nameErrMsg('用户名已存在');
+                        }
+                    }).catch(err =>{
 
+                    })
                 }
             },
 

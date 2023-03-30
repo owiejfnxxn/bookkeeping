@@ -5,7 +5,7 @@ import qs from "qs";
 import {Message} from "element-ui";
 
 
-const baseUrl = "http://localhost:8181";
+const baseUrl = "http://192.168.97.60:10010";
 const service = axios.create({
     timeout: 10000,//超时时间
     baseURL: baseUrl,
@@ -51,7 +51,7 @@ service.interceptors.response.use(
     async (response) => {
                 const res = response.data;
                 if(res.code !== 200){
-                    Message.warning(res.msg+"response warning");
+                    Message.warning(res.msg+"\nresponse warning");
                     return Promise.reject(response);
                 }else{
                     return response;

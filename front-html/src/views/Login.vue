@@ -54,7 +54,7 @@
                             require: true,message:'请输入用户名',trigger:'blur'
                         },
                         {
-                            min:3,max:255,message: '长度在3到255个字符之间',trigger:'blur'
+                            min:1,max:255,message: '长度在1到255个字符之间',trigger:'blur'
                         },
                     ],
                     //验证密码是否合法

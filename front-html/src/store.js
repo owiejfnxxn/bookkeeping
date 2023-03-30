@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {Message} from "element-ui";
 
 Vue.use(Vuex)
 
@@ -14,23 +13,22 @@ export const useUserStore = new Vuex.Store({
             totalExpenditure: 1.000,
     },
     mutations:{
-        // saveUserInfo(userInfo){
-        //     Message.info('  userInfo.id = '+ userInfo.id)
-        //     this.id = userInfo.id;
-        //     this.nickname = userInfo.nickname;
-        //     this.name = userInfo.name;
-        //     this.avatar = userInfo.avatar;
-        //     this.grossIncome = userInfo.grossIncome;
-        //     this.totalExpenditure = userInfo.totalExpenditure;
-        // },
-        // removeUserInfo(){
-        //     this.id = undefined;
-        //     this.nickname = undefined;
-        //     this.name = undefined;
-        //     this.avatar = undefined;
-        //     this.grossIncome = undefined;
-        //     this.totalExpenditure = undefined;
-        // }
+        saveUserInfo(userInfo){
+            this.id = userInfo.id;
+            this.nickname = userInfo.nickname;
+            this.name = userInfo.name;
+            this.avatar = userInfo.avatar;
+            this.grossIncome = userInfo.grossIncome;
+            this.totalExpenditure = userInfo.totalExpenditure;
+        },
+        removeUserInfo(){
+            this.id = undefined;
+            this.nickname = undefined;
+            this.name = undefined;
+            this.avatar = undefined;
+            this.grossIncome = undefined;
+            this.totalExpenditure = undefined;
+        }
     },
     getters:{
         isLogin(){
@@ -47,4 +45,20 @@ export const useUserStore = new Vuex.Store({
 
 export const useHomeStore = new Vuex.Store({
 
-})
+});
+export default new Vuex.Store({
+    state :{
+        tableSelected:'EITable'
+    },
+    mutations:{
+    },
+    getters:{
+
+    },
+    actions:{
+
+    },
+    modules:{
+
+    }
+});

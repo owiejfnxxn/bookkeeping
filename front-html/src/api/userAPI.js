@@ -31,3 +31,10 @@ export function userInfo(){
         needToken: true
     })
 }
+
+export function sendCode(){
+    return request({
+        url: '/user/sendCode',
+        method: Method.POST
+    })
+}
