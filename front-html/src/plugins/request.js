@@ -5,10 +5,13 @@ import qs from "qs";
 import {Message} from "element-ui";
 
 
-const baseUrl = "http://192.168.97.60:10010";
+const baseUrl = "http://localhost:8181";
 const service = axios.create({
     timeout: 10000,//超时时间
     baseURL: baseUrl,
+    headers:{
+        // 'x-token': 'Bearer ',
+    }
 })
 
 //request拦截器
@@ -37,7 +40,7 @@ service.interceptors.request.use(
     //获取Token
     let accessToken = getStore("accessToken");
     if(accessToken && config.needToken){
-        config.headers["accessToken"] =accessToken;
+        config.headers["accessToken"] = accessToken;
     }
     return config;
     },
@@ -51,7 +54,7 @@ service.interceptors.response.use(
     async (response) => {
                 const res = response.data;
                 if(res.code !== 200){
-                    Message.warning(res.msg+"\nresponse warning");
+                    Message.warning(res.msg+"123response warning");
                     return Promise.reject(response);
                 }else{
                     return response;
@@ -65,7 +68,7 @@ service.interceptors.response.use(
                 error.code === "ECONNABORTED"
                 ? "连接超时，请稍后再试！"
                 : "网络错误，请稍后再试！";
-                Message.warning(errorData.data || _message);
+                Message.warning(errorData === undefined ? undefined : errorData.data || _message);
             }else {
                 Message.warning('请求失败，网络错误');
             }

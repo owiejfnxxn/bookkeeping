@@ -192,7 +192,7 @@
                         }
                     }, 1000)
                     //向后端发送验证码请求
-                    userAPI.sendCode().then(res =>{
+                    userAPI.sendCode(this.ruleForm.email).then(res =>{
                         let data = res.data;
                         if(data.code === 40004){
                             this.ruleForm.emailErrMsg('邮箱已被注册');

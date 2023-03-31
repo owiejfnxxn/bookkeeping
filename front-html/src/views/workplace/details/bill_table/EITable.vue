@@ -45,12 +45,12 @@
     <div style="margin-top: 25px">
         <template>
             <el-table :data="tableData" ref="table" height="520" style="width:100%;">
-                <el-table-column label="编号" prop="id"></el-table-column>
-                <el-table-column label="日期" prop="date"></el-table-column>
-                <el-table-column label="种类" prop="kind"></el-table-column>
-                <el-table-column label="类别" prop="bill_type"></el-table-column>
-                <el-table-column label="金额" prop="amount"></el-table-column>
-                <el-table-column label="操作">
+                <el-table-column label="编号" prop="id" align="center"></el-table-column>
+                <el-table-column label="日期" prop="date" align="center"></el-table-column>
+                <el-table-column label="种类" prop="kind" align="center"></el-table-column>
+                <el-table-column label="类别" prop="bill_type" align="center"></el-table-column>
+                <el-table-column label="金额" prop="amount"  align="center"></el-table-column>
+                <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button
                                 size="mini"
@@ -65,7 +65,7 @@
             </el-table>
             <el-pagination :page-size="9"
                            :total="totalPage"
-                           current-page="currentPage"
+                           :current-page="currentPage"
                            layout="prev,pager,next"
                            @current-change="handleCurrentChange">
             </el-pagination>
@@ -105,11 +105,11 @@
         name: "",
         data(){
             return{
-                totalPage:'0',
-                pageSize:'9',
-                currentPage:'0',
-                totalIncome:'0',
-                totalExpenditure: '0',
+                totalPage:0,
+                pageSize:9,
+                currentPage:0,
+                totalIncome:0,
+                totalExpenditure: 0,
                 editId:'',
                 editForm:'',
                 dialogVisible:false,
@@ -124,10 +124,13 @@
         },
         methods:{
             showIncomeDetails(){
-                Message.info("等等，还没想好")
+                this.$store.state.tableSelected = 'incomeTable';
+
+                 Message.info(this.$store.state.tableSelected)
             },
             showExpenditureDetails(){
-                Message.info("等等。还没想好")
+                this.$store.state.tableSelected = 'expenditureTable';
+                Message.info(this.$store.state.tableSelected)
             },
             //处理页标改变
             handleCurrentChange(newPage){

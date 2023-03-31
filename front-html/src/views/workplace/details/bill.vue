@@ -8,6 +8,8 @@
 
 <script>
     import EITable from "@/views/workplace/details/bill_table/EITable";
+    import incomeTable from "@/views/workplace/details/bill_table/incomeTable";
+    import expenditureTable from "@/views/workplace/details/bill_table/expenditureTable";
     export default {
         name: "",
         data() {
@@ -20,7 +22,9 @@
             },
         },
         components: {
-            'EITable': EITable
+            'EITable': EITable,
+            'incomeTable': incomeTable,
+            'expenditureTable': expenditureTable
         }
     }
 </script>

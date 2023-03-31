@@ -32,9 +32,12 @@ export function userInfo(){
     })
 }
 
-export function sendCode(){
+export function sendCode(email){
     return request({
         url: '/user/sendCode',
-        method: Method.POST
+        method: Method.POST,
+        params:{
+            email:email,
+        },
     })
 }

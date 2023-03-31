@@ -36,7 +36,7 @@
     import Login from "@/views/Login";
     import {useUserStore} from "@/store";
     import * as userAPI from "@/api/userAPI"
-    import {setStore} from "@/plugins/storage";
+    import {setStore,getStore} from "@/plugins/storage";
     axios.defaults.baseURL="http://localhost:8181";
     export default {
         name: "Login",
@@ -44,7 +44,7 @@
             return{
                 //这是登录表单的数据绑定对象
                 loginForm: {
-                    username: '张三12',
+                    username: 'zhangwu',
                     password: '123456',
                 },
                 loginRules:{
@@ -79,6 +79,7 @@
                         if(res.data.success){
                             Message.success("登录成功")
                             setStore('accessToken',res.data.data.token);
+                            Message.success(getStore('accessToken'));
                             //获得用户数据
                             userAPI.userInfo().then(res => {
                                 let userInfo = res.data.data;
@@ -89,8 +90,6 @@
                                 useUserStore.state.name=userInfo.name;
                                 useUserStore.state.nickname=userInfo.nickname;
                                 useUserStore.state.grossIncome = userInfo.grossIncome;
-
-
                                 //打开主体页面
                                 router.push('/user/index')
                             }).catch(err => {
