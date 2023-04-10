@@ -2,18 +2,6 @@ import request,{Method} from "@/plugins/request";
 //支出
 
 /**
- * 根据月份获取总支出
- * @return {totalExpenditure} double 总收入
- * */
-export function detailsOutMonth(){
-    return request({
-        url: 'details/out/month',
-        method: Method.GET,
-        needToken: true,
-    })
-}
-
-/**
  * 根据月份获取支出明细
  * @param {month} int 月份
  * @param {page} int 页码
@@ -26,11 +14,33 @@ export function detailsOutMonth(){
  * "expenditureDate":"2020-01-01"
  * }
  * */
-export function detailsOutMonthPageSize(month,page,size){
+export function detailsExpenditureMonth(month,sortBy,page,size){
     return request({
-        url: "disbursement/"+month+'/'+page+'/'+size,
+        url: "expenditure/"+month+'/'+sortBy+'/'+page+'/'+size,
         method: Method.GET,
         needToken: true
+    })
+}
+
+/**
+ * 根据时间段获取支出明细
+ */
+export function detailsExpenditureTimeFrame(start_time,end_time,sortBy,page,size){
+    return request({
+        url:"expenditure/"+start_time+'/'+end_time+'/'+sortBy+'/'+page+"/"+size,
+        method: Method.GET,
+        needToken: true
+    })
+}
+
+/**
+ * 根据年份获取支出明细
+ */
+export function detailsExpenditureYear(year,sortBy,page,size){
+    return request({
+        url:"expenditure/"+year+'/'+sortBy+"/"+page+'/'+size,
+        method:Method.GET,
+        needToken:true
     })
 }
 
@@ -41,14 +51,15 @@ export function detailsOutMonthPageSize(month,page,size){
  * @param {expenditureDate} date 支出日期
  * @return null
  */
-export function detailsOut(expenditureType,expenditureAmount,expenditureDate){
+export function detailsOut(addForm){
     return request({
-        url: "disbursement",
+        url: "expenditure",
         method: Method.POST,
         params:{
-            expenditureType: expenditureType,
-            expenditureAmount: expenditureAmount,
-            expenditureDate: expenditureDate
+            expenditureType: addForm.kind,
+            expenditureAmount: addForm.amount,
+            expenditureDate: addForm.date,
+            expenditureInfo: addForm.info
         },
         needToken: true
     })
@@ -59,14 +70,15 @@ export function detailsOut(expenditureType,expenditureAmount,expenditureDate){
  * @param {id,expenditureType,expenditureAmount,expenditureDate} int,string,double,date
  * @return {id,expenditureType,expenditureAmount,expenditureDate} int,string,double,date
  */
-export function detailsOutIdPut(id,expenditureType,expenditureAmount,expenditureDate){
+export function detailsOutIdPut(editForm){
     return request({
-        url: "disbursement/"+id,
+        url: "expenditure/"+editForm.id,
         method: Method.PUT,
         params:{
-            expenditureType: expenditureType,
-            expenditureAmount: expenditureAmount,
-            expenditureDate: expenditureDate
+            expenditureType: editForm.kind,
+            expenditureAmount: editForm.amount,
+            expenditureDate: editForm.date,
+            expenditureInfo: editForm.info
         },
         needToken: true
     })
@@ -79,27 +91,9 @@ export function detailsOutIdPut(id,expenditureType,expenditureAmount,expenditure
  */
 export function detailsOutIdDelete(id){
     return request({
-        url: "disbursement/"+id,
+        url: "expenditure/"+id,
         method:Method.DELETE,
         needToken: true
     })
 }
 
-/**
- * 根据时间段获取总支出
- * @param {state_date} date 起始时间
- * @param {end_date} date 结束时间
- * @return {totalExpenditure} double
- */
-
-export function totalDisbursementStartAndEnd(start_time,end_time){
-    return request({
-        url: "disbursement",
-        method:Method.GET,
-        params:{
-            start_time:start_time,
-            end_time:end_time
-        },
-        needToken:true
-    })
-}

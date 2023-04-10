@@ -48,17 +48,21 @@ export const useHomeStore = new Vuex.Store({
 });
 export default new Vuex.Store({
     state :{
-        tableSelected:'EITable'
+        tableSelected:'EITable',
+        datePickerType:'week',
+        datePicker:Date.now(),
+        totalIncome:0,
+        totalExpenditure:0
     },
     mutations:{
+        updateDatePickerType(type){
+            this.state.datePickerType = type;
+        }
     },
     getters:{
-
     },
     actions:{
-
     },
     modules:{
-
     }
 });

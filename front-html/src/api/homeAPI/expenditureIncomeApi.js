@@ -1,5 +1,4 @@
 import request,{Method} from "@/plugins/request";
-import dayjs from "dayjs";
 //收入和支出
 
 /**
@@ -42,9 +41,9 @@ export function detailsYearPageSize(year,page,size){
  * @param {kind} int 账单种类（购物，饮食）
  * @return {data} double 总金额
  */
-export function detailsTypeCategory(type,kind){
+export function detailsTypeCategory(bill_type,kind){
     return request({
-        url: "details/"+type+"/"+kind,
+        url: "details/"+bill_type+"/"+kind,
         method: Method.GET,
         needToken: true
     })

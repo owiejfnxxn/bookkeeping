@@ -4,14 +4,12 @@ import {v4 as uuidv4} from "uuid";
 import qs from "qs";
 import {Message} from "element-ui";
 
-
-const baseUrl = "http://localhost:8181";
+const testUrl = "http://localhost:8181"
+// const baseUrl = "http://192.168.97.60:10010";
 const service = axios.create({
     timeout: 10000,//超时时间
-    baseURL: baseUrl,
-    headers:{
-        // 'x-token': 'Bearer ',
-    }
+    // baseURL: baseUrl
+    baseURL: testUrl
 })
 
 //request拦截器
@@ -54,7 +52,7 @@ service.interceptors.response.use(
     async (response) => {
                 const res = response.data;
                 if(res.code !== 200){
-                    Message.warning(res.msg+"123response warning");
+                    Message.warning(res.msg+" response warning");
                     return Promise.reject(response);
                 }else{
                     return response;
@@ -68,7 +66,7 @@ service.interceptors.response.use(
                 error.code === "ECONNABORTED"
                 ? "连接超时，请稍后再试！"
                 : "网络错误，请稍后再试！";
-                Message.warning(errorData === undefined ? undefined : errorData.data || _message);
+                 Message.warning((errorData === undefined ? _message: errorData.data) + 'response warning');
             }else {
                 Message.warning('请求失败，网络错误');
             }

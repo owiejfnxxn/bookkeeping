@@ -2,6 +2,39 @@ import request,{Method} from "@/plugins/request";
 //收入
 
 /**
+ * 根据年份获取收入明细
+ */
+export function detailsYearIncome(year,sortBy,page,size){
+    return request({
+        url: 'income/details/year/'+year+'/'+sortBy+'/'+page+'/'+size,
+        method: Method.GET,
+        needToken: true
+    })
+}
+
+/**
+ * 根据月获取收入明细
+ */
+export function detailsMonthIncome(month,sortBy,page,size){
+    return request({
+        url: 'income/details/month/'+month+'/'+sortBy+'/'+page+'/'+size,
+        method: Method.GET,
+        needToken: true
+    })
+}
+
+/**
+ * 根据时间段获取收入明细
+ */
+export function detailsTimeFrameIncome(start_time,end_time,sortBy,page,size){
+    return request({
+        url: 'income/details/time-frame/'+'/'+start_time+'/'+end_time+'/'+sortBy+'/'+page+'/'+size,
+        method: Method.GET,
+        needToken: true
+    })
+}
+
+/**
  * 根据月份获取总收入
  * @return {grossIncome} double 总收入
  * */
@@ -13,43 +46,20 @@ export function detailsIncomeMonth (){
     })
 }
 
-
-/**
- * 根据月份获取收入细明
- *@param {month} int 月份
- *@param {page} int 页码
- *@param {size} int 每页条数
- *@return {incomeList} List 收入明细
- * @template {
- * "id":1,
- * "incomeType":"工资",
- * "incomeAmount":10000,
- * "incomeDate":"2020-01-01"
- * }
- * */
-export function detailsIncomeMonthPageSize(month,page,size){
-    return request({
-        url: 'income/'+month+'/'+page+'/'+size,
-        method: Method.GET,
-        needToken: true,
-    })
-}
-
 /**
  * 添加收入明细
- *@param {incomeType} string 收入类型
- *@param {incomeAmount} double 收入金额
- *@param {incomeDate} date 收入日期
  *@return null
+ * @param addForm
  * */
-export function detailsIncome(incomeType,incomeAmount,incomeDate){
+export function detailsIncome(addForm){
     return request({
         url:'income',
         method: Method.POST,
         params:{
-            incomeType: incomeType,
-            incomeAmount: incomeAmount,
-            incomeDate: incomeDate
+            incomeType: addForm.kind,
+            incomeAmount: addForm.amount,
+            incomeDate: addForm.date,
+            incomeInfo: addForm.info
         },
         needToken: true
     })
@@ -57,22 +67,20 @@ export function detailsIncome(incomeType,incomeAmount,incomeDate){
 
 /**
  * 修改收入明细
- * @param {id} int 收入明细id
- * @param {incomeType} string 收入类型
- * @param {incomeAmount} double 收入金额
- * @param {incomeDate} date 收入日期
  *
  * @return {id,incomeType,incomeAmount,incomeDate} int,string,double,date
+ * @param editForm
  */
 
-export function detailsIncomeIdPut(id,incomeType,incomeAmount,incomeDate){
+export function detailsIncomeIdPut(editForm){
     return request({
-        url: "income/"+id,
+        url: "income/"+editForm.id,
         method: Method.PUT,
         params:{
-            incomeType : incomeType,
-            incomeAmount : incomeAmount,
-            incomeDate : incomeDate
+            incomeType : editForm.kind,
+            incomeAmount : editForm.amount,
+            incomeDate : editForm.date,
+            incomeInfo: editForm.info
         },
         needToken: true
     })
@@ -80,31 +88,13 @@ export function detailsIncomeIdPut(id,incomeType,incomeAmount,incomeDate){
 
 /**
  * 删除收入明细
- * @param {id} int 收入明细id
  * @return null
+ * @param id
  */
 export function detailIncomeIdDelete(id){
     return request({
         url: "income/"+id,
         method:Method.DELETE,
-        needToken: true
-    })
-}
-
-/**
- * 根据时间段获取总收入
- * @param {start_date} date 起始时间
- * @param {end_date} date 结束时间
- * @return {totalIncome} double
- */
-export function totalIncomeStartEnd(start_date,end_date){
-    return request({
-        url: "income",
-        method:Method.GET,
-        params:{
-            start_date:start_date,
-            end_date:end_date
-        },
         needToken: true
     })
 }

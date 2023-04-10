@@ -79,7 +79,6 @@
                         if(res.data.success){
                             Message.success("登录成功")
                             setStore('accessToken',res.data.data.token);
-                            Message.success(getStore('accessToken'));
                             //获得用户数据
                             userAPI.userInfo().then(res => {
                                 let userInfo = res.data.data;
@@ -91,6 +90,7 @@
                                 useUserStore.state.nickname=userInfo.nickname;
                                 useUserStore.state.grossIncome = userInfo.grossIncome;
                                 //打开主体页面
+                                // this.$store.state.tableSelected='EITable';
                                 router.push('/user/index')
                             }).catch(err => {
                                 console.log(err);

@@ -10,10 +10,11 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "dayjs": "^1.11.7",
+    "echarts": "^4.9.0",
     "element-ui": "^2.15.13",
+    "uuid": "^3.4.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
-    "vue-uuid": "^3.0.0",
     "vuex": "^3.0.1",
     "webpack": "^4.46.0"
   },
