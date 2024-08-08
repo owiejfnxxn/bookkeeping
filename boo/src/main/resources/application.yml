@@ -1,0 +1,13 @@
+#???????
+spring:
+#  jpa:
+#    show-sql: true
+  datasource:
+    url: jdbc:mysql://47.113.198.159:3306/book_keeping?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8181
+jwt.secret: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImlhdCI6MTYxOTU1ODQ5NSwiZXhwIjoxNjE5NTYyMDk1fQ.SkrpzVb03DPq3_QCk1IYIuJ5X5V7IKuwxl2rVrCz-5k
+
